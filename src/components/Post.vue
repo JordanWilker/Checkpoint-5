@@ -1,11 +1,11 @@
 <template>
   <div class="post card col-4">
-    <router-link :to="{name: 'BlogPage', params:{id: post.id}}">
+    <router-link :to="{name: 'Blog', params:{id: post.id}}">
       <div class="card-body text-center">
         <div class="card-title">
           {{ post.title }}
         </div>
-        <div class="card-text">
+        <div class="card-text" v-if="post.creator">
           {{ post.creator.email }}
         </div>
       </div>

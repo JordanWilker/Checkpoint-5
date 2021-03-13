@@ -5,7 +5,7 @@ import { api } from './AxiosService'
 class PostsService {
   async getPosts() {
     try {
-      const res = await api.get('/blogs')
+      const res = await api.get('api/blogs')
       // logger.log(res.data)
       AppState.posts = res.data
     } catch (error) {
@@ -15,9 +15,37 @@ class PostsService {
 
   async getPostById(id) {
     try {
-      const res = await api.get('/blogs/' + `${id}`)
+      const res = await api.get('api/blogs/' + `${id}`)
       logger.log(res.data)
       AppState.activeBlog = res.data
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async createPost(postData) {
+    try {
+      await api.post('api/blogs', postData)
+      this.getPosts()
+    } catch (error) {
+      logger.error(error)
+      this.getPosts()
+    }
+  }
+
+  async getComments(id) {
+    try {
+      const res = await api.get(`api/blogs/${id}/comments`)
+      AppState.comments = res.data
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async createComment(postData) {
+    try {
+      await api.post('api/comments', postData)
+      this.getComments(postData.blog)
     } catch (error) {
       logger.error(error)
     }
