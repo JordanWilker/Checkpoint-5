@@ -22,7 +22,8 @@ export default {
   setup() {
     const state = reactive({
       newPosts: computed(() => AppState.posts),
-      user: computed(() => AppState.user)
+      user: computed(() => AppState.user),
+      newComments: computed(() => AppState.comments)
     })
     onMounted(() => {
       postsService.getPosts()

@@ -36,6 +36,7 @@ class PostsService {
   async getComments(id) {
     try {
       const res = await api.get(`api/blogs/${id}/comments`)
+      logger.log(res.data)
       AppState.comments = res.data
     } catch (error) {
       logger.error(error)
@@ -46,6 +47,32 @@ class PostsService {
     try {
       await api.post('api/comments', postData)
       this.getComments(postData.blog)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async deletePost(id) {
+    try {
+      await api.delete('api/blogs/' + `${id}`)
+      this.getPosts()
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async deleteComment(id) {
+    try {
+      await api.delete('api/comments/' + `${id}`)
+      location.reload()
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async editPost(id) {
+    try {
+      await api.put('api/blogs/' + `${id}`)
     } catch (error) {
       logger.error(error)
     }

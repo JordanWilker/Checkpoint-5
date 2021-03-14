@@ -1,22 +1,55 @@
 <template>
-  <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
+  <div class="container-fluid">
+    <div class="about text-center row">
+      <h1 class="col">
+        Welcome {{ account.name }}
+      </h1>
+      <p class="">
+        {{ account.email }}
+      </p>
+    </div>
     <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+    <div class="row text-center">
+      <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#createModal" v-if="state.user.isAuthenticated">
+        Create Post
+      </button>
+      <PostCreate />
+    </div>
+    <div class="row" v-if="state.newPosts">
+      <div class="">
+        <AccountPost v-for="post in state.newPosts" :key="post" :post="post" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
+import { AccountPost } from '../components/AccountPost'
 import { AppState } from '../AppState'
+import { postsService } from '../services/PostsService'
+import { PostCreate } from '../components/PostCreate'
 export default {
   name: 'Account',
   setup() {
+    const state = reactive({
+      newPosts: computed(() => AppState.posts),
+      user: computed(() => AppState.user)
+    })
+    onMounted(() => {
+      postsService.getPosts()
+    })
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      state
     }
+  },
+  components: {
+    AccountPost,
+    PostCreate
   }
 }
+
 </script>
 
 <style scoped>

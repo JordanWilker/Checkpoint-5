@@ -1,15 +1,24 @@
-<template>
-  <div class="BlogPage">
-    {{ state.activePost.title }}
+<template class="container-fluid">
+  <div class="row">
+    <div class="BlogPage">
+      <div class="col">
+        {{ state.activePost.title }}
+      </div>
+    </div>
+    <div class="col">
+      {{ state.activePost.body }}
+    </div>
+    <button class="btn btn-danger" v-if="state.activePost.email == state.user.email" @click="deletePost">
+      X
+    </button>
+    <div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModalComment" v-if="state.user.isAuthenticated">
+        Create Comment
+      </button>
+      <CommentCreate />
+      <Comment v-for="comment in state.comments" :key="comment" :comment="comment" />
+    </div>
   </div>
-  <div>{{ state.activePost.body }}</div>
-  <div>
-    <Comment v-for="comment in state.comments" :key="comment" :comment="comment" />
-  </div>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModalComment" v-if="state.user.isAuthenticated">
-    Create Comment
-  </button>
-  <CommentCreate />
 </template>
 
 <script>
@@ -35,7 +44,13 @@ export default {
       postsService.getComments(route.params.id)
     })
     return {
-      state
+      state,
+      async editPost() {
+        try {
+          postsService.editPost()
+        } catch (error) {
+        }
+      }
     }
   },
   components: {
