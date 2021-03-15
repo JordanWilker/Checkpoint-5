@@ -8,17 +8,17 @@
         {{ account.email }}
       </p>
     </div>
-    <img class="rounded" :src="account.picture" alt="" />
+    <img class="rounded justify-content-center" :src="account.picture" alt="" />
     <div class="row text-center">
-      <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#createModal" v-if="state.user.isAuthenticated">
+      <button type="button" class="btn btn-primary justify-content-end" data-toggle="modal" data-target="#createModal" v-if="state.user.isAuthenticated">
         Create Post
       </button>
       <PostCreate />
     </div>
-    <div class="row" v-if="state.newPosts">
-      <div class="">
-        <AccountPost v-for="post in state.newPosts" :key="post" :post="post" />
-      </div>
+  </div>
+  <div class="container-fluid" v-if="state.newPosts">
+    <div class="">
+      <AccountPost v-for="post in state.newPosts" :key="post" :post="post" />
     </div>
   </div>
 </template>

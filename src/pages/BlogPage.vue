@@ -1,12 +1,17 @@
-<template class="container-fluid">
-  <div class="row">
-    <div class="BlogPage">
+<template class="container-fluid justify-content-center text-center">
+  <div class="text-center justify-content-center">
+    <div class="BlogPage row">
       <div class="col">
-        {{ state.activePost.title }}
+        <h3> {{ state.activePost.title }} </h3>
       </div>
     </div>
-    <div class="col">
-      {{ state.activePost.body }}
+    <div class="row">
+      <h5 class="col">
+        {{ state.activePost.body }}
+      </h5>
+      <p class="pt-2">
+        <br>Comments
+      </p>
     </div>
     <button class="btn btn-danger" v-if="state.activePost.email == state.user.email" @click="deletePost">
       X

@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-center">
       <div class="card-title">
-        {{ comment.body }}
+        <h5>{{ comment.body }}</h5>
       </div>
       <div class="card-text" v-if="comment.creator">
         {{ comment.creator.email }}

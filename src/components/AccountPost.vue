@@ -1,6 +1,6 @@
 <template>
-  <div class="col" v-if="post.creator">
-    <div class="post card" v-if="post.creator.email == state.user.email">
+  <div class="row" v-if="post.creator">
+    <div class="post card col-4" v-if="post.creator.email == state.user.email">
       <div class="text-right absolute top right p-2 z-2" v-if="post.creator">
         <button class="btn btn-danger" v-if="post.creator.email == state.user.email" @click="deletePost">
           X
